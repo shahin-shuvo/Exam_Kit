@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Exam Kit</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+          rel="stylesheet" type="text/css">
+    <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="/static/vendor_2/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_2/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_2/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_2/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_2/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_2/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/css/util_form.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/main_form.css">
+    <!-- for btn grp -->
+
+
+</head>
+
+<body id="page-top" style="background-color:#F9E79F">
+<!-- Navigation -->
+<a class="menu-toggle rounded" href="#">
+    <i class="fa fa-bars"></i>
+</a>
+<nav id="sidebar-wrapper" style="margin-top: -40px">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <a class="js-scroll-trigger" href="#page-top" style="font-family: Verdana;font-size: x-large">
+                <i class="fa fa-graduation-cap"></i>Exam Kit</a>
+        </li>
+        <li class="sidebar-brand">
+            <a class="js-scroll-trigger" href="#page-top" style="font-family: Verdana;font-size: large">
+                <i class="fa fa-user"></i>{{ session.username }}</a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a class="js-scroll-trigger" href="#"><i class="fa fa-group"></i> My Committee</a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a class="active" href="#">Existing Committee</a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a href="logout"><i class="fa fa-toggle-on"></i>Logout</a>
+        </li>
+    </ul>
+</nav>
+<header style="margin-top: 3%">
+    <div class="container text-center my-auto">
+        <div class="panel panel-primary">
+
+            <a href="#"
+               style="text-decoration: none; border-bottom: 1px solid firebrick;font-size: larger">
+                My Committee</a>
+            <div class="box" style="background-color: whitesmoke;width: 300px; margin-left: 37%">These are the committe of you.
+                    You are allowed to add any course or course teacher or create exam routine and set invigilators.
+                <iframe width="10px" height="30px" ></iframe>
+            </div>
+            <style>
+                .box {
+                    display: none;
+                    width: 100%;
+                }
+
+                a:hover + .box, .box:hover {
+                    display: block;
+                    position: relative;
+                    z-index: 100;
+                }
+
+            </style>
+        </div>
+    </div>
+    <div class="overlay"></div>
+
+</header>
+
+<!-- ===============================================  -->
+<div class="table-responsive">
+
+    <table id="Table" class="mb30" style="margin-top: 1%">
+
+        <tbody id="tableBody" onload="load_data()">
+        <form method=post action="" name="teacher_form" id="table">
+            {% for j in range(count) %}
+                <tr>
+
+                    <td>
+                        <div class="col-xl-3 col-sm-6 mb-3">
+                            <div class="card border-dark mb-3" style="width: 400px;height: 100%">
+                                <div class="card-header">
+                                    <ul class="nav nav-pills card-header-pills">
+                                        <li class="nav-item">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-dark" disabled>Committee</button>
+                                                <button type="button" class="btn btn-dark">Exam</button>
+                                                <button type="button" class="btn btn-dark" data-toggle="modal"
+                                                        data-target="#courseModal">Course
+                                                </button>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-body-icon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <div class="mr-5" style="font-size: x-large">{{ data[j][0] }}</div>
+                                    <div class="mr-5" style="font-size: medium">Assigned to :{{ data[j][4] }}</div>
+                                </div>
+
+                                <button class="btn btn-dark" type="button" data-toggle="modal"
+                                        data-target="#exampleModal" style="float: left">
+                                    View Details <i class="fa fa-angle-right" style="float: right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            <style>
+
+
+                table {
+                    border: hidden;
+                    height: inherit;
+                    width: 400px;
+                    background-color: transparent;
+                    margin-left: 33%;
+
+                }
+
+                tr {
+                    width: 400px;
+                    background-color: transparent;
+                }
+
+                td {
+                    border: hidden;
+                    height: inherit;
+                    width: 400px;
+                    background-color: transparent;
+                    position: center;
+                }
+            </style>
+
+
+            <script type="text/javascript">
+                var dataArr, course_dataArr;
+                var count, year_int, courseCount;
+                window.onload = function () {
+                    load_data();
+                    load_course_data()
+                };
+
+                var table = document.getElementById("Table"), rIndex;
+                //var selectedDate;
+
+                // table rows
+                for (var i = 0; i < table.rows.length; i++) {
+                    // row cells
+                    for (var j = 0; j < table.rows[i].cells.length; j++) {
+
+                        table.rows[i].cells[j].onclick = function () {
+                            rIndex = this.parentElement.rowIndex;
+                            setdata(rIndex);
+                            setCourseData(rIndex);
+                        };
+                    }
+                }
+
+
+                function load_data() {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            dataArr = JSON.parse(this.response);
+                            count = dataArr.length;
+
+                        }
+                    };
+                    var args = 1;
+                    xhttp.open("GET", "http://127.0.0.1:5000/modal_query?query=" + args, true);
+                    xhttp.send();
+
+                }
+
+                function load_course_data() {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            course_dataArr = JSON.parse(this.response);
+
+                        }
+                    };
+                    var args = 1;
+                    xhttp.open("GET", "http://127.0.0.1:5000/course_data?query=" + args, true);
+                    xhttp.send();
+
+                }
+
+                function setdata(r) {
+                    document.getElementById("cmname").textContent = dataArr[r][0];
+                    document.getElementById("syl").textContent = dataArr[r][1];
+                    document.getElementById("stdate").textContent = dataArr[r][2];
+                    document.getElementById("enddate").textContent = dataArr[r][3];
+                    document.getElementById("year").textContent = dataArr[r][4];
+                    document.getElementById("chairman").textContent = dataArr[r][5];
+                    document.getElementById("gm1").textContent = dataArr[r][6];
+                    document.getElementById("gm2").textContent = dataArr[r][7];
+                    document.getElementById("exm").textContent = dataArr[r][8];
+
+                }
+
+                //This is for setting data in course modal
+                function setCourseData(r) {
+                    document.getElementById("exampleModalLongTitle").textContent = dataArr[r][4];
+                    if (dataArr[r][4] == "1st Year") {
+                        year_int = 1;
+                    }
+                    else if (dataArr[r][4] == "2nd Year") {
+                        year_int = 2;
+                    }
+                    else if (dataArr[r][4] == "3rd Year") {
+                        year_int = 3;
+                    }
+                    else if (dataArr[r][4] == "4th Year") {
+                        year_int = 4;
+                    }
+
+                    var stSem = 1;
+                    var ndSem = 2;
+                    document.getElementById("1stSem").remove();
+                    var html = '<p  id="1stSem"></p> ';
+                    var p = document.getElementById("h1");
+                    var newElement = document.createElement('p');
+                    newElement.setAttribute('id', "1stSem");
+                    newElement.innerHTML = html;
+                    p.appendChild(newElement);
+
+                    document.getElementById("2ndSem").remove();
+                    var html = '<p  id="2ndSem"></p> ';
+                    var p = document.getElementById("h2");
+                    var newElement = document.createElement('p');
+                    newElement.setAttribute('id', "2ndSem");
+                    newElement.innerHTML = html;
+                    p.appendChild(newElement);
+
+                    for (var i = 0; i < course_dataArr.length; i++) {
+                        if (course_dataArr[i][2] == year_int) {
+
+                            if (course_dataArr[i][3] == ndSem) {
+                                var p2 = "<p>" + course_dataArr[i][0] + "---" + course_dataArr[i][1] + "</p>";
+                                document.getElementById("2ndSem").insertAdjacentHTML('beforeend', p2);
+                            }
+                            else {
+                                var p2 = "<p>" + course_dataArr[i][0] + "---" + course_dataArr[i][1] + "</p>";
+                                document.getElementById("1stSem").insertAdjacentHTML('beforeend', p2);
+                            }
+                        }
+                    }
+
+                }
+
+                //add new course
+                function add_course() {
+                    var code = document.getElementById("code").value;
+                    var title = document.getElementById("title").value;
+                    var e = document.getElementById('semId');
+                    var semester = e.options[e.selectedIndex].value;
+                    if (semester == "1st Semester") {
+                        semester = 1;
+                    }
+                    else semester = 2;
+                    var e = document.getElementById('credit');
+                    var credit = e.options[e.selectedIndex].value;
+                    var xhttp = new XMLHttpRequest();
+                    if (code != "" && title != "") {
+                        xhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var ok = JSON.parse(this.response);
+                                location.reload(true);
+
+                            }
+                        };
+                        var args = [code, title, year_int, semester, credit];
+                        xhttp.open("GET", "http://127.0.0.1:5000/addNewCourse?query=" + JSON.stringify(args), true);
+                        xhttp.send();
+                    }
+
+                }
+
+            </script>
+
+        </form>
+        </tbody>
+    </table>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="/static/js/stylish-portfolio.min.js"></script>
+</div>
+
+
+<!-- =========================================== -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Committee Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- =========================================== -->
+            <div class="modal-body">
+
+                <table style='margin-left: auto; margin-right: auto'>
+                    <tr>
+                        <td>
+                            <div class="wrap-input100 validate-input"
+                                 style="width: 300px">
+                                <span class="label-input100">Committee Name</span>
+                                <label class="input100" type="text" name="name" id="cmname" disabled></label>
+                                <span class="focus-input100"></span>
+
+                            </div>
+
+                        </td>
+                        <td style="padding-left: 10px">
+                            <div class="wrap-input100 input100-select">
+                                <span class="label-input100">SYL ID</span>
+                                <div style="width: 130px">
+                                    <label class="input100" type="text" name="name" id="syl" disabled></label>
+                                    <span class="focus-input100"></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!--===============================================================================================-->
+                <table style='margin-left: auto; margin-right: auto'>
+                    <tr>
+                        <td>
+                            <div class="wrap-input100 validate-input"
+                                 style="width: 170px">
+                                <span class="label-input100">Start Date</span>
+                                <label class="input100" type="text" name="name" id="stdate" disabled></label>
+                                <span class="focus-input100"></span>
+
+                            </div>
+
+                        </td>
+                        <td style="padding-left: 5px">
+                            <div class="wrap-input100 validate-input"
+                                 style="width: 170px">
+                                <span class="label-input100">End Date</span>
+                                <label class="input100" type="text" name="name" id="enddate" disabled></label>
+                                <span class="focus-input100"></span>
+
+                            </div>
+
+                        </td>
+                        <td style="padding-left: 5px">
+                            <div class="wrap-input100 input100-select">
+                                <span class="label-input100">Year</span>
+                                <div style="width: 100px">
+                                    <label class="input100" type="text" name="name" id="year" disabled></label>
+                                    <span class="focus-input100"></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!--===============================================================================================-->
+                <table style='margin-left: auto; margin-right: auto'>
+                    <tr>
+                        <td>
+                            <div class="wrap-input100 input100-select" style="width: 225px">
+                                <span class="label-input100">Chairman</span>
+                                <div>
+                                    <label class="input100" type="text" name="name" id="chairman" disabled></label>
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <span class="focus-input100"></span>
+                            </div>
+
+                        </td>
+                        <td style="padding-left: 10px">
+                            <div class="wrap-input100 input100-select" style="width: 225px">
+                                <span class="label-input100">General Member-1</span>
+                                <div>
+                                    <label class="input100" type="text" name="name" id="gm1" disabled></label>
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <span class="focus-input100"></span>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+
+
+                <!--===============================================================================================-->
+
+                <table style='margin-left: auto; margin-right: auto'>
+                    <tr>
+                        <td>
+                            <div class="wrap-input100 input100-select" style="width: 225px">
+                                <span class="label-input100">General Member-2</span>
+                                <div>
+                                    <label class="input100" type="text" name="name" id="gm2" disabled></label>
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <span class="focus-input100"></span>
+                            </div>
+
+                        </td>
+                        <td style="padding-left: 10px">
+                            <div class="wrap-input100 input100-select" style="width: 225px">
+                                <span class="label-input100">External Member</span>
+                                <div>
+                                    <label class="input100" type="text" name="name" id="exm" disabled></label>
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <span class="focus-input100"></span>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                </table>
+                <!--===============================================================================================-->
+
+
+                <!--===============================================================================================-->
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--===============================================================================================-->
+<script src="/static/vendor_2/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/static/vendor_2/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="/static/vendor_2/bootstrap/js/popper.js"></script>
+<script src="/static/vendor_2/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/static/vendor_2/select2/select2.min.js"></script>
+<script>
+    $(".selection-2").select2({
+        minimumResultsForSearch: 20,
+        dropdownParent: $('#dropDownSelect1')
+    });
+</script>
+<script src="/static/vendor_2/daterangepicker/moment.min.js"></script>
+<script src="/static/vendor_2/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="/static/vendor_2/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="/static/js/main_form.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 id="h1">1st Semester</h5>
+                <p id="1stSem"></p>
+
+                <hr>
+                <h5 id="h2">2nd Semester</h5>
+                <p id="2ndSem"></p>
+
+
+                <hr>
+                <h5 id="h2">Add New Course</h5>
+                <table style='margin-left: auto; margin-right: auto'>
+                    <tr>
+                        <td>
+                            <div class="wrap-input100 validate-input"
+                                 style="width: 220px">
+                                <span class="label-input100">Course Code</span>
+                                <input class="input100" type="text" name="name" placeholder="Enter Course Code"
+                                       id="code">
+                                <span class="focus-input100"></span>
+
+                            </div>
+
+                        </td>
+                        <td>
+                            <div class="wrap-input100 validate-input"
+                                 style="width: 220px;margin-left: 10px">
+                                <span class="label-input100">Title</span>
+                                <input class="input100" type="text" name="name" placeholder="Enter Course Title"
+                                       id="title">
+                                <span class="focus-input100"></span>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <span class="label-input100">Course Credit</span>
+                                <div style="width: 100px;margin-left: 10px">
+                                    <select class="selection-2" name="budget" id="credit">
+                                        <option>3</option>
+                                        <option>2</option>
+                                        <option>1.5</option>
+                                        <option>.75</option>
+                                        <option>4</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <div>
+                                <span class="label-input100">Semester</span>
+                                <div style="width: 100px;margin-left: 10px">
+                                    <select class="selection-2" name="budget" id="semId">
+                                        <option>1st Semester</option>
+                                        <option>2nd Semester</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="add_course()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Exam Kit</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+          rel="stylesheet" type="text/css">
+    <link href="/static/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/stylish-portfolio.min.css" rel="stylesheet">
+    <link href="/static/css/animated_hover.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top" style="background-color:#F9E79F">
+<!-- Navigation -->
+<a class="menu-toggle rounded" href="#">
+    <i class="fa fa-bars"></i>
+</a>
+<nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+            <a class="js-scroll-trigger" href="#page-top" style="font-family: Verdana;font-size: x-large">Exam Kit</a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a class="js-scroll-trigger" href="index">Create Committee</a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a class="active" href="#">Existing Committee</a>
+        </li>
+        <li class="sidebar-nav-item">
+            <a href="logout">Logout</a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Services -->
+<section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+        <div class="content-section-heading">
+            <h3 class="text-secondary mb-0" style="font-size: 20px">CSEDU</h3>
+            <h2 class="mb-5">Existing Committee</h2>
+        </div>
+
+
+        <div class="row">
+
+            {% for j in range(limit) %}
+                <div class="col-lg-3 col-md-6 mb-5 mb-sm-0" id="circle">
+                    <a class="active" href="#">
+            <span class="service-icon rounded-circle mx-auto mb-sm-0">
+              <i class=" icon-people"></i>
+            </span>
+                        <style>
+                            ul1 {
+                                background-color: transparent;
+                                display: none;
+                            }
+
+                            span:hover + ul1 {
+                                display: contents;
+                            }
+
+                            span:hover {
+                                background-color: #F1C40F;
+                                color: whitesmoke;
+                            }
+                        </style>
+                    </a>
+                    <style type="text/css">
+                         ul1 {
+                                background-color: transparent;
+                                display: none;
+                            }
+                        A:link {
+                            COLOR: white;
+                            TEXT-DECORATION: none;
+                            font-weight: normal
+                        }
+
+                        A:visited {
+                            COLOR: white;
+                            TEXT-DECORATION: none;
+                            font-weight: normal
+                        }
+
+                        A:active {
+                            COLOR: white;
+                            TEXT-DECORATION: none
+                        }
+
+                        A:hover {
+                            COLOR: #F1C40F;
+                            TEXT-DECORATION: none
+                        }
+                    </style>
+                    <h4><a class="active" href="#" >
+                        <strong >{{ committee_data[j][0] }}</strong> </a>
+                    </h4>
+
+                    <p class="text-faded mb-0" style="float: left"><strong style="color: whitesmoke">Chairman :</strong> {{ committee_data[j][5] }}</p>
+                    <p class="text-faded mb-0" style="float: left"><strong style="color: whitesmoke">GenMem-1 : </strong>{{ committee_data[j][6] }}</p>
+                    <p class="text-faded mb-0" style="float: left"><strong style="color: whitesmoke">GenMem-2 :</strong> {{ committee_data[j][7] }}</p>
+                    <p class="text-faded mb-0" style="float: left"><strong style="color: whitesmoke">External : </strong>{{ committee_data[j][8] }}</p>
+                  <table >
+                    <tr>
+                        <td >
+                            <p class="text-faded mb-0" style="margin-left: 0px"><strong style="color: whitesmoke">Year: </strong>{{ committee_data[j][4] }}</p>
+
+                        </td>
+                        <td>
+                              <p class="text-faded mb-0" style="margin-left: 5px" ><strong style="color: whitesmoke">Syllabus: </strong>{{ committee_data[j][1] }}</p>
+
+                        </td>
+                    </tr>
+                </table>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    function circle_clicked() {
+
+        var xhttp = new XMLHttpRequest();
+
+        var node = document.getElementById('name');
+        var text  = node.textContent;
+        alert(text);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var x = xhttp.responseText;
+                if (x == "Exist") {
+                    alert("Already Exist")
+                }
+                else if (x == "ERROR") {
+                    alert("Some error occured")
+
+                }
+                else if (x == "OK") {
+                    window.scrollTo(0, 0);
+                    location.reload();
+                }
+            }
+        };
+            var args = text;
+            xhttp.open("GET", "http://127.0.0.1:5000/modal_query?query=" + args, true);
+            xhttp.send();
+
+
+    }
+
+</script>
+
+
+<!-- Footer -->
+<footer class="footer text-center">
+    <div class="container" style="height: 20px">
+        <ul class="list-inline mb-sm-0">
+            <li class="list-inline-item">
+                <a class="social-link rounded-circle text-white mr-3" href="#">
+                    <i class="icon-social-facebook"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="social-link rounded-circle text-white mr-3" href="#">
+                    <i class="icon-social-twitter"></i>
+                </a>
+            </li>
+            <li class="list-inline-item">
+                <a class="social-link rounded-circle text-white" href="#">
+                    <i class="icon-social-github"></i>
+                </a>
+            </li>
+        </ul>
+        <p class="text-muted small mb-0">Copyright &copy; Exam Kit 2018</p>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+
+<!-- Bootstrap core JavaScript -->
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="/static/js/stylish-portfolio.min.js"></script>
+
+</body>
+
+</html>
